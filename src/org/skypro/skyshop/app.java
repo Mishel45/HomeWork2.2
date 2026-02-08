@@ -5,6 +5,10 @@ import org.skypro.skyshop.product.Product;
 
 class app {
     public static void main(String[] args) {
+        System.out.println("Уважаемый наставник представляю твоему вниманию домашнее задание за " +
+                "16 апреля.(Введение в ООП. Инкапсуляция) ");
+        System.out.println();
+
         Product product1 = new Product("Ножовка", 150);
         Product product2 = new Product("Топор", 250);
         Product product3 = new Product("Молоток", 230);
