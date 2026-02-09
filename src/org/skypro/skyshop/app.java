@@ -1,20 +1,23 @@
 package org.skypro.skyshop;
 
 import org.skypro.skyshop.basket.ProductBasket;
+import org.skypro.skyshop.product.DiscountedProduct;
+import org.skypro.skyshop.product.FixPriceProduct;
 import org.skypro.skyshop.product.Product;
+import org.skypro.skyshop.product.SimpleProduct;
 
 class app {
     public static void main(String[] args) {
         System.out.println("Уважаемый наставник представляю твоему вниманию домашнее задание за " +
-                "16 апреля.(Введение в ООП. Инкапсуляция) ");
+                "23 апреля.(ООП. Наследование, абстрактные классы) ");
         System.out.println();
 
-        Product product1 = new Product("Ножовка", 150);
-        Product product2 = new Product("Топор", 250);
-        Product product3 = new Product("Молоток", 230);
-        Product product4 = new Product("Мастерок", 180);
-        Product product5 = new Product("Рулетка", 210);
-        Product product6 = new Product("Уровень", 380);
+        Product product1 = new SimpleProduct("Ножовка", 150);
+        Product product2 = new FixPriceProduct( "Топор");
+        Product product3 = new SimpleProduct("Молоток", 230);
+        Product product4 = new DiscountedProduct( "Мастерок", 180, 25);
+        Product product5 = new FixPriceProduct("Рулетка");
+        Product product6 = new SimpleProduct("Уровень", 380);
 
         ProductBasket basket1 = new ProductBasket();
         System.out.println("Добавление продукта в корзину.");
