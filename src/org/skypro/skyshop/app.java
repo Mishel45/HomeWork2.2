@@ -13,9 +13,9 @@ class app {
         System.out.println();
 
         Product product1 = new SimpleProduct("Ножовка", 150);
-        Product product2 = new FixPriceProduct( "Топор");
+        Product product2 = new FixPriceProduct("Топор");
         Product product3 = new SimpleProduct("Молоток", 230);
-        Product product4 = new DiscountedProduct( "Мастерок", 180, 25);
+        Product product4 = new DiscountedProduct("Мастерок", 180, 25);
         Product product5 = new FixPriceProduct("Рулетка");
         Product product6 = new SimpleProduct("Уровень", 380);
 

@@ -31,7 +31,7 @@ public class ProductBasket {
         for (Product product : basket) {
             if (product != null) {
                 System.out.println(product);
-                if (product.isSpecial()){
+                if (product.isSpecial()) {
                     specialCount++;
                 }
                 isEmpty = false;
@@ -41,7 +41,7 @@ public class ProductBasket {
             System.out.println("в корзине ничего нет");
         } else {
             System.out.println("Итого: " + getTotalCost() + " руб.");
-            System.out.println("Специальных товаров: " +specialCount);
+            System.out.println("Специальных товаров: " + specialCount);
         }
     }
 

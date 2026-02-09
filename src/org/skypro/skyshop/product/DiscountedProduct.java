@@ -16,6 +16,7 @@ public class DiscountedProduct extends Product {
         // Используем double для точности при делении, затем приводим к int
         return (int) (basePrice * (1.0 - discount / 100.0));
     }
+
     @Override
     public boolean isSpecial() {
         return true;

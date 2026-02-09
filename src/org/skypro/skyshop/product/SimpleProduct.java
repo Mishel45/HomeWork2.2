@@ -12,6 +12,7 @@ public class SimpleProduct extends Product {
     public int getPrice() {
         return price;
     }
+
     @Override
     public boolean isSpecial() {
         return false;
@@ -19,7 +20,6 @@ public class SimpleProduct extends Product {
 
     @Override
     public String toString() {
-        return getName()+ ": " + getPrice() + " руб.";
+        return getName() + ": " + getPrice() + " руб.";
     }
-
 }
