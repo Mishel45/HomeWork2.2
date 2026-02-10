@@ -2,7 +2,7 @@ package org.skypro.skyshop.Article;
 
 import org.skypro.skyshop.Search.Searchable;
 
-public class Article implements Searchable{
+public class Article implements Searchable {
     private final String title;
     private final String content;
 
@@ -17,8 +17,9 @@ public class Article implements Searchable{
 
     @Override
     public String toString() {
-        return  title + '\n' + content ;
+        return title + '\n' + content;
     }
+
     @Override
     public String getSearchTerm() {
         return this.toString();

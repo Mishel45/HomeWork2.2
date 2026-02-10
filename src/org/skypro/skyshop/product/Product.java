@@ -17,6 +17,7 @@ public abstract class Product implements Searchable {
     public String toString() {
         return name + ": " + getPrice() + " руб.";
     }
+
     @Override
     public String getSearchTerm() {
         return name;
@@ -31,6 +32,5 @@ public abstract class Product implements Searchable {
     public String getName() {
         return name;
     }
-
 }
 

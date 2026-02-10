@@ -83,7 +83,6 @@ class app {
         engine.add(new Article("Применение мастерка", "Мастерок применяется для замешивания" +
                 " раствора и кладки кирпичей"));
 
-
         System.out.println();
         System.out.println(" Проверка поиска");
         printSearchResults(engine.search("Молот"));
@@ -94,9 +93,8 @@ class app {
         System.out.println(" Проверка поиска 3");
         printSearchResults(engine.search("абракадабра"));
 
-
-
     }
+
     private static void printSearchResults(Searchable[] results) {
         boolean found = false;
         for (Searchable item : results) {
