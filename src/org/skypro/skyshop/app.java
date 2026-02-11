@@ -8,11 +8,12 @@ import org.skypro.skyshop.product.DiscountedProduct;
 import org.skypro.skyshop.product.FixPriceProduct;
 import org.skypro.skyshop.product.Product;
 import org.skypro.skyshop.product.SimpleProduct;
+import org.skypro.skyshop.exceptions.BestResultNotFoundException;
 
 class app {
     public static void main(String[] args) {
         System.out.println("Уважаемый наставник представляю твоему вниманию домашнее задание за " +
-                "30 апреля.(ООП: полиморфизм, интерфейсы) ");
+                "7 мая.(Исключения в Java) ");
         System.out.println();
 
         Product product1 = new SimpleProduct("Ножовка", 150);
@@ -29,6 +30,7 @@ class app {
         basket1.addProduct(product3);
         basket1.addProduct(product4);
         basket1.addProduct(product5);
+        basket1.addProduct(product6);
 
         System.out.println("Печать содержимого корзины с несколькими товарами.");
         basket1.printBasket();
@@ -78,7 +80,7 @@ class app {
                 "валки деревьев"));
         engine.add(new Article("Применение молоток", "Молоток требуется для забивания " +
                 "гвоздей в деревянные изделия"));
-        engine.add(new Article("Применение рулетки", "Рулетка нужна для измерения длины " +
+        engine.add(new Article("Применение рулетки", "Рулетка нужна для измерения длины и для для для " +
                 "изделий"));
         engine.add(new Article("Применение мастерка", "Мастерок применяется для замешивания" +
                 " раствора и кладки кирпичей"));
@@ -93,6 +95,44 @@ class app {
         System.out.println(" Проверка поиска 3");
         printSearchResults(engine.search("абракадабра"));
 
+        System.out.println();
+        try {
+            Product product7 = new SimpleProduct("Рубанок", -666);
+        } catch (IllegalArgumentException e) {
+            System.out.println("Ошибка: " + e.getMessage());
+        }
+
+        try {
+            Product product8 = new DiscountedProduct("Гвоздодер", -200, 15);
+        } catch (IllegalArgumentException e) {
+            System.out.println("Ошибка: " + e.getMessage());
+        }
+
+        try {
+            Product product9 = new FixPriceProduct("");
+        } catch (IllegalArgumentException e) {
+            System.out.println("Ошибка: " + e.getMessage());
+        }
+        try {
+            Product product10 = new DiscountedProduct("Гвоздодер", 200, 105);
+        } catch (IllegalArgumentException e) {
+            System.out.println("Ошибка: " + e.getMessage());
+        }
+        System.out.println();
+
+        try {
+            Searchable result = engine.findBestMatch("для");
+            System.out.println("Найден результат: " + result.getSearchTerm());
+        } catch (BestResultNotFoundException e) {
+            System.err.println(e.getMessage());
+        }
+        System.out.println();
+        try {
+            Searchable result = engine.findBestMatch("Несущуствует");
+            System.out.println("Найден результат: " + result.getSearchTerm());
+        } catch (BestResultNotFoundException e) {
+            System.err.println(e.getMessage());
+        }
     }
 
     private static void printSearchResults(Searchable[] results) {
@@ -107,4 +147,6 @@ class app {
             System.out.println("Ничего не найдено");
         }
     }
+
+
 }

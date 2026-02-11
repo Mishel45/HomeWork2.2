@@ -2,11 +2,17 @@ package org.skypro.skyshop.product;
 
 public class DiscountedProduct extends Product {
     private final int basePrice;
-    private final int discount; // Процент скидки (0-100)
+    private final int discount;
 
-    public DiscountedProduct(String name, int basePrice, int discount) {
+    public DiscountedProduct(String name, int basePrice, int discount) throws IllegalArgumentException {
         super(name);
+        if (basePrice <= 0) {
+            throw new IllegalArgumentException("Базовая цена должна быть больше 0");
+        }
         this.basePrice = basePrice;
+        if (discount < 0 || discount > 100) {
+            throw new IllegalArgumentException("Скидка должна быть в пределах от 0 до 100% включительно");
+        }
         this.discount = discount;
     }
 
