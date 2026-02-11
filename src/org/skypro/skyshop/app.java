@@ -1,20 +1,27 @@
 package org.skypro.skyshop;
 
+import org.skypro.skyshop.Article.Article;
+import org.skypro.skyshop.Search.SearchEngine;
+import org.skypro.skyshop.Search.Searchable;
 import org.skypro.skyshop.basket.ProductBasket;
+import org.skypro.skyshop.product.DiscountedProduct;
+import org.skypro.skyshop.product.FixPriceProduct;
 import org.skypro.skyshop.product.Product;
+import org.skypro.skyshop.product.SimpleProduct;
+import org.skypro.skyshop.exceptions.BestResultNotFoundException;
 
 class app {
     public static void main(String[] args) {
         System.out.println("Уважаемый наставник представляю твоему вниманию домашнее задание за " +
-                "16 апреля.(Введение в ООП. Инкапсуляция) ");
+                "7 мая.(Исключения в Java) ");
         System.out.println();
 
-        Product product1 = new Product("Ножовка", 150);
-        Product product2 = new Product("Топор", 250);
-        Product product3 = new Product("Молоток", 230);
-        Product product4 = new Product("Мастерок", 180);
-        Product product5 = new Product("Рулетка", 210);
-        Product product6 = new Product("Уровень", 380);
+        Product product1 = new SimpleProduct("Ножовка", 150);
+        Product product2 = new FixPriceProduct("Топор");
+        Product product3 = new SimpleProduct("Молоток", 230);
+        Product product4 = new DiscountedProduct("Мастерок", 180, 25);
+        Product product5 = new FixPriceProduct("Рулетка");
+        Product product6 = new SimpleProduct("Уровень для строителя", 380);
 
         ProductBasket basket1 = new ProductBasket();
         System.out.println("Добавление продукта в корзину.");
@@ -23,6 +30,7 @@ class app {
         basket1.addProduct(product3);
         basket1.addProduct(product4);
         basket1.addProduct(product5);
+        basket1.addProduct(product6);
 
         System.out.println("Печать содержимого корзины с несколькими товарами.");
         basket1.printBasket();
@@ -57,5 +65,88 @@ class app {
         System.out.println(basket1.containsProduct("Мастерок"));
         System.out.println();
 
+        SearchEngine engine = new SearchEngine(10);
+
+        engine.add(product1);
+        engine.add(product2);
+        engine.add(product3);
+        engine.add(product4);
+        engine.add(product5);
+        engine.add(product6);
+
+        engine.add(new Article("Применение ножовки", "Ножовка нужна для распилки досок, " +
+                "Веток и других деревянных изделий"));
+        engine.add(new Article("Применение топора", "Топор применяется для колки дров и " +
+                "валки деревьев"));
+        engine.add(new Article("Применение молоток", "Молоток требуется для забивания " +
+                "гвоздей в деревянные изделия"));
+        engine.add(new Article("Применение рулетки", "Рулетка нужна для измерения длины и для для для " +
+                "изделий"));
+        engine.add(new Article("Применение мастерка", "Мастерок применяется для замешивания" +
+                " раствора и кладки кирпичей"));
+
+        System.out.println();
+        System.out.println(" Проверка поиска");
+        printSearchResults(engine.search("Молот"));
+        System.out.println();
+        System.out.println(" Проверка поиска 2");
+        printSearchResults(engine.search("для"));
+        System.out.println();
+        System.out.println(" Проверка поиска 3");
+        printSearchResults(engine.search("абракадабра"));
+
+        System.out.println();
+        try {
+            Product product7 = new SimpleProduct("Рубанок", -666);
+        } catch (IllegalArgumentException e) {
+            System.out.println("Ошибка: " + e.getMessage());
+        }
+
+        try {
+            Product product8 = new DiscountedProduct("Гвоздодер", -200, 15);
+        } catch (IllegalArgumentException e) {
+            System.out.println("Ошибка: " + e.getMessage());
+        }
+
+        try {
+            Product product9 = new FixPriceProduct("");
+        } catch (IllegalArgumentException e) {
+            System.out.println("Ошибка: " + e.getMessage());
+        }
+        try {
+            Product product10 = new DiscountedProduct("Гвоздодер", 200, 105);
+        } catch (IllegalArgumentException e) {
+            System.out.println("Ошибка: " + e.getMessage());
+        }
+        System.out.println();
+
+        try {
+            Searchable result = engine.findBestMatch("для");
+            System.out.println("Найден результат: " + result.getSearchTerm());
+        } catch (BestResultNotFoundException e) {
+            System.err.println(e.getMessage());
+        }
+        System.out.println();
+        try {
+            Searchable result = engine.findBestMatch("Несущуствует");
+            System.out.println("Найден результат: " + result.getSearchTerm());
+        } catch (BestResultNotFoundException e) {
+            System.err.println(e.getMessage());
+        }
     }
+
+    private static void printSearchResults(Searchable[] results) {
+        boolean found = false;
+        for (Searchable item : results) {
+            if (item != null) {
+                System.out.println(item.getStringRepresentation());
+                found = true;
+            }
+        }
+        if (!found) {
+            System.out.println("Ничего не найдено");
+        }
+    }
+
+
 }
