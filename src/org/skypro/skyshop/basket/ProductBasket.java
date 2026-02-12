@@ -35,7 +35,6 @@ public class ProductBasket {
             if (product.isSpecial()) {
                 specialCount++;
             }
-
         }
         System.out.println("Итого: " + getTotalCost() + " руб.");
         System.out.println("Специальных товаров: " + specialCount);

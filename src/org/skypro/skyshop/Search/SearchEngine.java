@@ -9,15 +9,12 @@ import java.util.List;
 public class SearchEngine {
     private final List<Searchable> searchables = new ArrayList<>();
 
-
-
-
     public void add(Searchable searchable) {
-       searchables.add(searchable);
+        searchables.add(searchable);
     }
 
     public List<Searchable> search(String query) {
-        List <Searchable> results = new ArrayList<>();
+        List<Searchable> results = new ArrayList<>();
 
         for (Searchable element : searchables) {
             if (element != null && element.getSearchTerm().contains(query)) {
@@ -26,26 +23,20 @@ public class SearchEngine {
         }
         return results;
     }
-    public void printSearchables() {
 
-        if (searchables.isEmpty()) {
-            System.out.println("Поиск не дал результатов");
-            return;
+    public static void printSearchResults(List<Searchable> results) {
+        if (results.isEmpty()) {
+            System.out.println("Ничего не найдено");
+        } else {
+            for (Searchable item : results) {
+                System.out.println(item);
+            }
         }
-        for (Searchable searchable : searchables) {
-            System.out.println(searchable);
-
-
-        }
-
     }
-
-
 
     public Searchable findBestMatch(String search) throws BestResultNotFoundException {
         Searchable bestMatch = null;
         int maxCount = 0;
-
         for (Searchable item : searchables) {
             if (item == null) continue;
             String term = item.getSearchTerm();

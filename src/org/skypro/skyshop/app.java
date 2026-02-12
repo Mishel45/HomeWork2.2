@@ -92,15 +92,15 @@ class app {
         System.out.println();
         System.out.println(" Проверка поиска");
         List<Searchable> result1 = engine.search("Молот");
-        printSearchResults(result1);
+        SearchEngine.printSearchResults(result1);
         System.out.println();
         System.out.println(" Проверка поиска 2");
         List<Searchable> result2 = engine.search("для");
-        printSearchResults(result2);
+        SearchEngine.printSearchResults(result2);
         System.out.println();
         System.out.println(" Проверка поиска 3");
         List<Searchable> result3 = engine.search("абракадабра");
-        printSearchResults(result3);
+        SearchEngine.printSearchResults(result3);
 
         System.out.println();
         try {
@@ -166,20 +166,5 @@ class app {
         }
         basket2.printBasket();
         System.out.println();
-    }
-
-
-    private static void printSearchResults(List<Searchable> results) {
-
-        if (results.isEmpty()) {
-            System.out.println("Ничего не найдено");
-        } else {
-            // Перебор списка результатов
-            for (Searchable item : results) {
-                System.out.println(item); // Печатаем каждый найденный объект.
-            }
-        }
-
-
     }
 }
