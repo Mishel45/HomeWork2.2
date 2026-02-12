@@ -1,37 +1,46 @@
 package org.skypro.skyshop.Search;
 
 import org.skypro.skyshop.exceptions.BestResultNotFoundException;
+import org.skypro.skyshop.product.Product;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class SearchEngine {
-    private final Searchable[] searchables;
-    private int count = 0;
+    private final List<Searchable> searchables = new ArrayList<>();
 
-    public SearchEngine(int size) {
-        this.searchables = new Searchable[size];
-    }
+
+
 
     public void add(Searchable searchable) {
-        if (count < searchables.length) {
-            searchables[count] = searchable;
-            count++;
-        } else {
-            System.out.println("Поисковый массив заполнен");
-        }
+       searchables.add(searchable);
     }
 
-    public Searchable[] search(String query) {
-        Searchable[] results = new Searchable[5];
-        int resultsCount = 0;
-        for (Searchable item : searchables) {
-            if (item == null) break;
-            if (item.getSearchTerm().contains(query)) {
-                results[resultsCount] = item;
-                resultsCount++;
+    public List<Searchable> search(String query) {
+        List <Searchable> results = new ArrayList<>();
+
+        for (Searchable element : searchables) {
+            if (element != null && element.getSearchTerm().contains(query)) {
+                results.add(element);
             }
-            if (resultsCount == 5) break;
         }
         return results;
     }
+    public void printSearchables() {
+
+        if (searchables.isEmpty()) {
+            System.out.println("Поиск не дал результатов");
+            return;
+        }
+        for (Searchable searchable : searchables) {
+            System.out.println(searchable);
+
+
+        }
+
+    }
+
+
 
     public Searchable findBestMatch(String search) throws BestResultNotFoundException {
         Searchable bestMatch = null;
