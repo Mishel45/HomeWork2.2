@@ -5,6 +5,8 @@ import org.skypro.skyshop.product.Product;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
 
 public class SearchEngine {
     private final List<Searchable> searchables = new ArrayList<>();
@@ -13,23 +15,23 @@ public class SearchEngine {
         searchables.add(searchable);
     }
 
-    public List<Searchable> search(String query) {
-        List<Searchable> results = new ArrayList<>();
+    public Map<String, Searchable> search(String query) {
+        Map<String, Searchable> results = new TreeMap<>();
 
         for (Searchable element : searchables) {
             if (element != null && element.getSearchTerm().contains(query)) {
-                results.add(element);
+                results.put(element.getSearchTerm(), element);
             }
         }
         return results;
     }
 
-    public static void printSearchResults(List<Searchable> results) {
+    public static void printSearchResults(Map<String, Searchable> results) {
         if (results.isEmpty()) {
             System.out.println("Ничего не найдено");
         } else {
-            for (Searchable item : results) {
-                System.out.println(item);
+            for (Searchable item : results.values()) {
+                System.out.println(item.getStringRepresentation());
             }
         }
     }

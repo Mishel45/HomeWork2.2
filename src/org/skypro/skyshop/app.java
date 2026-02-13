@@ -11,6 +11,7 @@ import org.skypro.skyshop.product.SimpleProduct;
 import org.skypro.skyshop.exceptions.BestResultNotFoundException;
 
 import java.util.List;
+import java.util.Map;
 
 class app {
     public static void main(String[] args) {
@@ -91,16 +92,18 @@ class app {
 
         System.out.println();
         System.out.println(" Проверка поиска");
-        List<Searchable> result1 = engine.search("Молот");
-        SearchEngine.printSearchResults(result1);
+        Map<String, Searchable> searchPesults1 = engine.search("Молот");
+        SearchEngine.printSearchResults(searchPesults1);
         System.out.println();
+
         System.out.println(" Проверка поиска 2");
-        List<Searchable> result2 = engine.search("для");
-        SearchEngine.printSearchResults(result2);
+        Map<String, Searchable> searchPesults2 = engine.search("для");
+        SearchEngine.printSearchResults(searchPesults2);
         System.out.println();
+
         System.out.println(" Проверка поиска 3");
-        List<Searchable> result3 = engine.search("абракадабра");
-        SearchEngine.printSearchResults(result3);
+        Map<String, Searchable> searchPesults3 = engine.search("абракадабра");
+        SearchEngine.printSearchResults(searchPesults3);
 
         System.out.println();
         try {
