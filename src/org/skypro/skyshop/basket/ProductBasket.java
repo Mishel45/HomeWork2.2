@@ -2,23 +2,19 @@ package org.skypro.skyshop.basket;
 
 import org.skypro.skyshop.product.Product;
 
+import java.util.*;
+
 public class ProductBasket {
-    private final Product[] basket = new Product[5];
+    private final Map<String, List<Product>> basket = new HashMap<>();
 
     public void addProduct(Product product) {
-        for (int i = 0; i < basket.length; i++) {
-            if (basket[i] == null) {
-                basket[i] = product;
-                return;
-            }
-        }
-        System.out.println("Невозможно добавить продукт");
+        basket.computeIfAbsent(product.getName(), k -> new ArrayList<>()).add(product);
     }
 
     public int getTotalCost() {
         int total = 0;
-        for (Product product : basket) {
-            if (product != null) {
+        for (List<Product> productList : basket.values()) {
+            for (Product product : productList) {
                 total += product.getPrice();
             }
         }
@@ -26,32 +22,33 @@ public class ProductBasket {
     }
 
     public void printBasket() {
-        boolean isEmpty = true;
-        for (Product product : basket) {
-            if (product != null) {
-                System.out.println(product.getName() + ": " + product.getPrice() + " руб.");
-                isEmpty = false;
-            }
-        }
-        if (isEmpty) {
+        int specialCount = 0;
+        if (basket.isEmpty()) {
             System.out.println("в корзине ничего нет");
-        } else {
+            return;
+        }
+        for (List<Product> productList : basket.values()) {
+            for (Product product : productList) {
+                System.out.println(product);
+                if (product.isSpecial()) {
+                    specialCount++;
+                }
+            }
             System.out.println("Итого: " + getTotalCost() + " руб.");
+            System.out.println("Специальных товаров: " + specialCount);
         }
     }
 
     public boolean containsProduct(String name) {
-        for (Product product : basket) {
-            if (product != null && product.getName().equals(name)) {
-                return true;
-            }
-        }
-        return false;
+        return basket.containsKey(name);
     }
 
     public void clearBasket() {
-        for (int i = 0; i < basket.length; i++) {
-            basket[i] = null;
-        }
+        basket.clear();
+    }
+
+    public List<Product> removeByName(String name) {
+        List<Product> removed = basket.remove(name);
+        return (removed != null) ? removed : new ArrayList<>();
     }
 }
