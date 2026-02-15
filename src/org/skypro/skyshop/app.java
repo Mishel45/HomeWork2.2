@@ -9,14 +9,13 @@ import org.skypro.skyshop.product.FixPriceProduct;
 import org.skypro.skyshop.product.Product;
 import org.skypro.skyshop.product.SimpleProduct;
 import org.skypro.skyshop.exceptions.BestResultNotFoundException;
-
 import java.util.List;
-import java.util.Map;
+import java.util.Set;
 
 class app {
     public static void main(String[] args) {
         System.out.println("Уважаемый наставник представляю твоему вниманию домашнее задание за " +
-                "14 мая.(Java Collections Framework: List) ");
+                "28 мая.(Java Collections Framework: Set) ");
         System.out.println();
 
         Product product1 = new SimpleProduct("Ножовка", 150);
@@ -92,20 +91,20 @@ class app {
 
         System.out.println();
         System.out.println(" Проверка поиска");
-        Map<String, Searchable> searchPesults1 = engine.search("Молот");
-        SearchEngine.printSearchResults(searchPesults1);
+        Set<Searchable> result4 = engine.search("Молот");
+        SearchEngine.printSearchResults(result4);
         System.out.println();
 
         System.out.println(" Проверка поиска 2");
-        Map<String, Searchable> searchPesults2 = engine.search("для");
-        SearchEngine.printSearchResults(searchPesults2);
+        Set<Searchable> result5 = engine.search("для");
+        SearchEngine.printSearchResults(result5);
         System.out.println();
 
         System.out.println(" Проверка поиска 3");
-        Map<String, Searchable> searchPesults3 = engine.search("абракадабра");
-        SearchEngine.printSearchResults(searchPesults3);
-
+        Set<Searchable> result6 = engine.search("абракадабра");
+        SearchEngine.printSearchResults(result6);
         System.out.println();
+
         try {
             Product product7 = new SimpleProduct("Рубанок", -666);
         } catch (IllegalArgumentException e) {
