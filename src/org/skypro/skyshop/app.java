@@ -15,7 +15,7 @@ import java.util.Set;
 class app {
     public static void main(String[] args) {
         System.out.println("Уважаемый наставник представляю твоему вниманию домашнее задание за " +
-                "28 мая.(Java Collections Framework: Set) ");
+                "4 июня.(Stream API и лямбда-выражения) ");
         System.out.println();
 
         Product product1 = new SimpleProduct("Ножовка", 150);
