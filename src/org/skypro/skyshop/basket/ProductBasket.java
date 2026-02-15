@@ -12,31 +12,29 @@ public class ProductBasket {
     }
 
     public int getTotalCost() {
-        int total = 0;
-        for (List<Product> productList : basket.values()) {
-            for (Product product : productList) {
-                total += product.getPrice();
-            }
-        }
-        return total;
+        return basket.values().stream()
+                .flatMap(Collection::stream)
+                .mapToInt(Product::getPrice)
+                .sum();
+    }
+    private long getSpecialCount(){
+        return basket.values().stream()
+                .flatMap(Collection::stream)
+                .filter(Product::isSpecial)
+                .count();
     }
 
     public void printBasket() {
-        int specialCount = 0;
         if (basket.isEmpty()) {
             System.out.println("в корзине ничего нет");
             return;
         }
-        for (List<Product> productList : basket.values()) {
-            for (Product product : productList) {
-                System.out.println(product);
-                if (product.isSpecial()) {
-                    specialCount++;
-                }
-            }
+        basket.values().stream()
+                .flatMap(Collection::stream)
+                .forEach(System.out::println);
             System.out.println("Итого: " + getTotalCost() + " руб.");
-            System.out.println("Специальных товаров: " + specialCount);
-        }
+            System.out.println("Специальных товаров: " + getSpecialCount() +" шт.");
+
     }
 
     public boolean containsProduct(String name) {
